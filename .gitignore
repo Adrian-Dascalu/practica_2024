@@ -6,6 +6,10 @@ training/api_key
 
 training/tennis-ball-detection-6/README.roboflow.txt
 training/tennis-ball-detection-6/README.dataset.txt
-training/tennis-ball-detection-6/test
-training/tennis-ball-detection-6/train
-training/tennis-ball-detection-6/valid
+training/tennis-ball-detection-6/tennis-ball-detection-6/test
+training/tennis-ball-detection-6/tennis-ball-detection-6/train
+training/tennis-ball-detection-6/tennis-ball-detection-6/valid
+
+training/runs
+
+runs/*

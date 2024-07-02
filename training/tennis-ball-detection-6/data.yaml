@@ -7,6 +7,6 @@ roboflow:
   url: https://universe.roboflow.com/viren-dhanwani/tennis-ball-detection/dataset/6
   version: 6
   workspace: viren-dhanwani
-test: ../test/images
+test: tennis-ball-detection-6/test/images
 train: tennis-ball-detection-6/train/images
 val: tennis-ball-detection-6/valid/images
