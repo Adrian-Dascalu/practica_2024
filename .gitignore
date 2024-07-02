@@ -13,3 +13,5 @@ training/tennis-ball-detection-6/tennis-ball-detection-6/valid
 training/runs
 
 runs/*
+
+yolov8l.pt
