@@ -1,10 +1,10 @@
 from ultralytics import YOLO
 
 if __name__ == '__main__':
-    model = YOLO('runs/detect/train6/weights/best.pt')
+    model = YOLO('runs/detect/train8/weights/best.pt')
 
-    model.train(data="C:/Users/adiad/OneDrive/Desktop/practica 2024/training/tennis-ball-detection-6/data.yaml",
-                epochs=100,
+    model.train(data="C:/Users/adiad/OneDrive/Desktop/practica 2024/ball-detection-fac/data.yaml",
+                epochs=50,
                 imgsz=640,
                 device='0',
                 batch = 1,

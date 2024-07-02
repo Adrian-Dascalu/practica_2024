@@ -5,4 +5,4 @@ Task-uri terminate:
 -descarcat torch
 -descarcat dataset pentru antrenarea detectiei mai bune a mingii de tenis
 -ascuns private api_key-ul pentru descarcarea datasetului de pe robloflow
-
+-antrenat un model special pentru mai buna detectie a mingii de tenis
