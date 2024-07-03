@@ -17,3 +17,5 @@ training/runs
 runs/*
 
 yolov8l.pt
+
+models/model_keypoints.pth
