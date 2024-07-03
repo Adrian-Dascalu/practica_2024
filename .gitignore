@@ -10,6 +10,8 @@ training/tennis-ball-detection-6/tennis-ball-detection-6/test
 training/tennis-ball-detection-6/tennis-ball-detection-6/train
 training/tennis-ball-detection-6/tennis-ball-detection-6/valid
 
+training/data
+
 training/runs
 
 runs/*
