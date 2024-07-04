@@ -8,3 +8,5 @@ Task-uri terminate:
 -antrenat un model special pentru mai buna detectie a mingii de tenis
 -descarcat dataset pentru detectarea keypointurilor de pe terenul de tenis
 -antrenat modelul pentru detectarea keypointurilor
+-prelucrat clipul de output pentru a putea detecta doar ce ne dorim
+-detectat keypoint urile terenului de tenis
