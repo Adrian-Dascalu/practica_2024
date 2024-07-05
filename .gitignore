@@ -3,16 +3,15 @@ runs/*
 video/*
 
 training/api_key
+training/data
+training/runs
+training/model_keypoints.pth
 
 training/tennis-ball-detection-6/README.roboflow.txt
 training/tennis-ball-detection-6/README.dataset.txt
 training/tennis-ball-detection-6/tennis-ball-detection-6/test
 training/tennis-ball-detection-6/tennis-ball-detection-6/train
 training/tennis-ball-detection-6/tennis-ball-detection-6/valid
-
-training/data
-
-training/runs
 
 runs/*
 
@@ -25,3 +24,5 @@ output_videos
 court_keypoints/__pycache__
 trackers/__pycache__
 utils/__pycache__
+constants/__pycache__
+mini_court/__pycache__

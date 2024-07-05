@@ -10,3 +10,7 @@ Task-uri terminate:
 -antrenat modelul pentru detectarea keypointurilor
 -prelucrat clipul de output pentru a putea detecta doar ce ne dorim
 -detectat keypoint urile terenului de tenis
+-interpolat pozitiile mingii de tenis
+-numerotat numarul frame-urilor
+-selectati pentru tracking doar jucatorii
+-desenat harta terenului cu keypoint-uri
