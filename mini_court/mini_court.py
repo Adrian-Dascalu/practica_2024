@@ -88,6 +88,26 @@ class MiniCourt():
         self.start_x = self.end_x - self.drawing_rectangle_width
         self.start_y = self.end_y - self.drawing_rectangle_height
     
+    def draw_court(self, frame):
+        for i in range(0, len(self.drawing_keypoints), 2):
+            x = int(self.drawing_keypoints[i])
+            y = int(self.drawing_keypoints[i + 1])
+
+            cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
+
+        for line in self.lines:
+            start_point = (int(self.drawing_keypoints[line[0] * 2]), int(self.drawing_keypoints[line[0] * 2 + 1]))
+            end_point = (int(self.drawing_keypoints[line[1] * 2]), int(self.drawing_keypoints[line[1] * 2 + 1]))
+
+            cv2.line(frame, start_point, end_point, (0, 0, 0), 2)
+
+        net_start_point = (int(self.drawing_keypoints[0]), int(self.drawing_keypoints[1] + self.drawing_keypoints[5] / 2))
+        net_end_point = (int(self.drawing_keypoints[2]), int(self.drawing_keypoints[1] + self.drawing_keypoints[5] / 2))
+
+        cv2.line(frame, net_start_point, net_end_point, (255, 0, 0), 2)
+
+        return frame
+
     def draw_background_rectangle(self, frame):
         shapes = np.zeros_like(frame, np.uint8)
 
@@ -99,7 +119,7 @@ class MiniCourt():
 
         mask = shapes.astype(bool)
 
-        #out[mask] = cv2.addWeighted(frame, alpha, shapes, 1 - alpha, 0)[mask]
+        out[mask] = cv2.addWeighted(frame, alpha, shapes, 1 - alpha, 0)[mask]
 
         return out
     
@@ -108,6 +128,7 @@ class MiniCourt():
 
         for frame in frames:
             frame = self.draw_background_rectangle(frame)
+            frame = self.draw_court(frame)
 
             output_frames.append(frame)
 
