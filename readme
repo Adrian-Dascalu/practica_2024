@@ -14,3 +14,5 @@ Task-uri terminate:
 -numerotat numarul frame-urilor
 -selectati pentru tracking doar jucatorii
 -desenat harta terenului cu keypoint-uri
+-detectat frame-urile in care se intampla o lovitura de minge
+-desenat pe harta playerii si mingea

@@ -17,6 +17,41 @@ class BallTracker:
         ball_detections = [{1:x} for x in df_ball_positions.to_numpy().tolist()]
     
         return ball_detections
+    
+    def get_ball_shot_frames(self, ball_positions):
+        minimum_change_frames = 25
+
+        ball_positions = [x.get(1, []) for x in ball_positions]
+        df_ball_positions = pd.DataFrame(ball_positions, columns=['x1', 'y1', 'x2', 'y2'])
+
+        df_ball_positions['ball_hit'] = 0
+
+        df_ball_positions['mid_y'] = (df_ball_positions['y1'] + df_ball_positions['y2']) / 2
+        df_ball_positions['mid_y_rolling_mean'] = df_ball_positions['mid_y'].rolling(window = 5, min_periods = 1, center = False).mean()
+        df_ball_positions['dela_y'] = df_ball_positions['mid_y_rolling_mean'].diff()
+
+        for i in range(1, len(df_ball_positions) - int(minimum_change_frames * 1.2)):
+            negative_change = df_ball_positions['dela_y'].iloc[i] > 0 and df_ball_positions['dela_y'].iloc[i + 1] < 0
+            positive_change = df_ball_positions['dela_y'].iloc[i] < 0 and df_ball_positions['dela_y'].iloc[i + 1] > 0
+        
+            if negative_change or positive_change:
+                change = 0
+
+                for change in range(i + 1, i + int(minimum_change_frames * 1.2) + 1):
+                    negative_change_next_frame = df_ball_positions['dela_y'].iloc[i] > 0 and df_ball_positions['dela_y'].iloc[change] < 0
+                    positive_change_next_frame = df_ball_positions['dela_y'].iloc[i] < 0 and df_ball_positions['dela_y'].iloc[change] > 0
+            
+                    if negative_change and negative_change_next_frame:
+                        change += 1
+                    elif positive_change and positive_change_next_frame:
+                        change += 1
+
+                if change > minimum_change_frames - 1:
+                    df_ball_positions['ball_hit'].iloc[i] = 1
+
+        frame_ball_hits = df_ball_positions[df_ball_positions['ball_hit'] == 1].index.to_list()
+
+        return frame_ball_hits
 
     def detect_frames(self, frames, read_from_stub=False, stub_path=None):
         ball_detection = []
