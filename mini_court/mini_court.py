@@ -108,8 +108,8 @@ class MiniCourt():
 
             cv2.line(frame, start_point, end_point, (0, 0, 0), 2)
 
-        net_start_point = (int(self.drawing_keypoints[0]), int(self.drawing_keypoints[1] + self.drawing_keypoints[5] / 2))
-        net_end_point = (int(self.drawing_keypoints[2]), int(self.drawing_keypoints[1] + self.drawing_keypoints[5] / 2))
+        net_start_point = (int(self.drawing_keypoints[0]), int((self.drawing_keypoints[1] + self.drawing_keypoints[5]) / 2))
+        net_end_point = (int(self.drawing_keypoints[2]), int((self.drawing_keypoints[1] + self.drawing_keypoints[5]) / 2))
 
         cv2.line(frame, net_start_point, net_end_point, (255, 0, 0), 2)
 
@@ -161,6 +161,12 @@ class MiniCourt():
 
         closest_mini_court_keypoint = (self.drawing_keypoints[closest_keypoint_index * 2], self.drawing_keypoints[closest_keypoint_index * 2 + 1])
 
+        if object_position[0] < closest_keypoint[0]:
+            mini_court_x_distance = -mini_court_x_distance
+
+        if object_position[1] < closest_keypoint[1]:
+            mini_court_y_distance = -mini_court_y_distance
+
         mini_court_player_position = (closest_mini_court_keypoint[0] + mini_court_x_distance, closest_mini_court_keypoint[1] + mini_court_y_distance)
 
         return mini_court_player_position
@@ -203,21 +209,25 @@ class MiniCourt():
                 output_player_bbox_dict[player_id] = mini_court_player_position
 
                 if closest_player_to_ball == player_id:
-                    closest_keypoint_index = get_closest_keypoint(ball_position, court_keypoints, [0, 2, 12, 13])
+                    closest_keypoint_index = get_closest_keypoint(ball_position, court_keypoints, [0, 1, 2, 3, 12, 13])
                     closest_keypoint = (court_keypoints[closest_keypoint_index * 2],
                                         court_keypoints[closest_keypoint_index * 2 + 1])
                     
-                mini_court_player_position = self.get_mini_court_coordinates(ball_position,
-                                                                             closest_keypoint,
-                                                                             closest_keypoint_index,
-                                                                             max_player_height_pixels,
-                                                                             player_heights[player_id])
+                    mini_court_player_position = self.get_mini_court_coordinates(ball_position,
+                                                                                 closest_keypoint,
+                                                                                 closest_keypoint_index,
+                                                                                 max_player_height_pixels,
+                                                                                 player_heights[player_id])
                 
-                output_ball_boxes.append({1: mini_court_player_position})
+                    #correct the ball position for mini court
+                    output_ball_boxes.append({1: mini_court_player_position})
 
             output_player_boxes.append(output_player_bbox_dict)
 
-        return output_player_boxes, output_ball_boxes
+        #correct the ball position for mini court
+        #output_ball_boxes.append({1: output_ball_boxes[i]} for i in range(len(output_ball_boxes)))
+
+        return (output_player_boxes, output_ball_boxes)
     
     def draw_points_on_mini_court(self, frames, positions, color = (255, 0, 0)):
         for frame_num, frame in enumerate(frames):

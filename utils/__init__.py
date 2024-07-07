@@ -11,3 +11,5 @@ from .bbox_utils import (measure_distance,
 
 from .conversions import (convert_pixel_distance_to_meters,
                           convert_meters_distance_to_pixels)
+
+from .player_stats_draw import draw_player_stats
