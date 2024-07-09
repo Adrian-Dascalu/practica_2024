@@ -1,11 +1,11 @@
 from ultralytics import YOLO
 
 if __name__ == '__main__':
-    model = YOLO('runs/detect/train14/weights/best.pt')
+    model = YOLO('yolov8l.pt')
 
-    model.predict(source='input_videos/input_video.mp4',
+    model.predict(source='input_videos/input_video_sh.mp4',
                 conf = 0.20,
-                show = True,
+                #show = True,
                 save = True,
                 line_width = 1,
                 device = '0'

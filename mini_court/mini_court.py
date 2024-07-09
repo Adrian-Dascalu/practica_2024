@@ -209,7 +209,7 @@ class MiniCourt():
                 output_player_bbox_dict[player_id] = mini_court_player_position
 
                 if closest_player_to_ball == player_id:
-                    closest_keypoint_index = get_closest_keypoint(ball_position, court_keypoints, [0, 1, 2, 3, 12, 13])
+                    closest_keypoint_index = get_closest_keypoint(ball_position, court_keypoints, [0, 1, 12, 13])
                     closest_keypoint = (court_keypoints[closest_keypoint_index * 2],
                                         court_keypoints[closest_keypoint_index * 2 + 1])
                     
@@ -238,4 +238,21 @@ class MiniCourt():
 
                 cv2.circle(frame, (x, y), 5, color, -1)
         
+        return frames
+    
+    def draw_mini_court_shot_lines(self, frames, ball_shot_frames, ball_positions):
+        for frame_num, frame in enumerate(frames):
+            for ball_shot_ind in range(len(ball_shot_frames) - 1):
+                start_frame = ball_shot_frames[ball_shot_ind]
+                end_frame = ball_shot_frames[ball_shot_ind + 1]
+
+                start_position = ball_positions[start_frame][1]
+                end_position = ball_positions[end_frame][1]
+
+                if frame_num >= end_frame: #and frame_num <= end_frame + 50:
+                    start_position = (int(start_position[0]), int(start_position[1]))
+                    end_position = (int(end_position[0]), int(end_position[1]))
+
+                    cv2.line(frame, start_position, end_position, (0, 255, 0), 2)
+
         return frames

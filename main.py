@@ -85,7 +85,7 @@ def main():
         # player who shot the ball
         player_positions = player_mini_court_detections[start_frame]
 
-        player_shot_ball = min( player_positions.keys(), key=lambda player_id: measure_distance(player_positions[player_id],
+        player_shot_ball = min(player_positions.keys(), key=lambda player_id: measure_distance(player_positions[player_id],
                                                                                                 ball_mini_court_detections[start_frame][1]))
 
         # opponent player speed
@@ -134,6 +134,9 @@ def main():
     output_video_frames = mini_court.draw_mini_court(output_video_frames)
     output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, player_mini_court_detections)
     output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, ball_mini_court_detections, color=(0,255,255))
+
+    # Draw Ball Shots Lines on Mini Court
+    output_video_frames = mini_court.draw_mini_court_shot_lines(output_video_frames, ball_shot_frames, ball_mini_court_detections)
     
     # Draw Player Stats
     output_video_frames = draw_player_stats(output_video_frames,player_stats_data_df)
