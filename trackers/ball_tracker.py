@@ -31,15 +31,15 @@ class BallTracker:
         df_ball_positions['dela_y'] = df_ball_positions['mid_y_rolling_mean'].diff()
 
         for i in range(1, len(df_ball_positions) - int(minimum_change_frames * 1.2)):
-            negative_change = df_ball_positions['dela_y'].iloc[i] > 0 and df_ball_positions['dela_y'].iloc[i + 1] < 0
-            positive_change = df_ball_positions['dela_y'].iloc[i] < 0 and df_ball_positions['dela_y'].iloc[i + 1] > 0
+            negative_change = df_ball_positions['dela_y'].loc[i] > 0 and df_ball_positions['dela_y'].loc[i + 1] < 0
+            positive_change = df_ball_positions['dela_y'].loc[i] < 0 and df_ball_positions['dela_y'].loc[i + 1] > 0
         
             if negative_change or positive_change:
                 change = 0
 
                 for change in range(i + 1, i + int(minimum_change_frames * 1.2) + 1):
-                    negative_change_next_frame = df_ball_positions['dela_y'].iloc[i] > 0 and df_ball_positions['dela_y'].iloc[change] < 0
-                    positive_change_next_frame = df_ball_positions['dela_y'].iloc[i] < 0 and df_ball_positions['dela_y'].iloc[change] > 0
+                    negative_change_next_frame = df_ball_positions['dela_y'].loc[i] > 0 and df_ball_positions['dela_y'].loc[change] < 0
+                    positive_change_next_frame = df_ball_positions['dela_y'].loc[i] < 0 and df_ball_positions['dela_y'].loc[change] > 0
             
                     if negative_change and negative_change_next_frame:
                         change += 1
@@ -47,7 +47,7 @@ class BallTracker:
                         change += 1
 
                 if change > minimum_change_frames - 1:
-                    df_ball_positions['ball_hit'].iloc[i] = 1
+                    df_ball_positions.loc[i, 'ball_hit'] = 1
 
         frame_ball_hits = df_ball_positions[df_ball_positions['ball_hit'] == 1].index.to_list()
 
