@@ -19,8 +19,6 @@ yolov8l.pt
 
 models/model_keypoints.pth
 
-output_videos
-
 court_keypoints/__pycache__
 trackers/__pycache__
 utils/__pycache__
